@@ -1,5 +1,5 @@
-const seedrandom = require("seedrandom");
-const wordList = require("./wordList.json");
+import seedrandom from "seedrandom";
+import wordList from "./words/wordList.js";
 
 function words(options) {
   // initalize random number generator for words if options.seed is provided
@@ -67,7 +67,7 @@ function words(options) {
   }
 
   const total = options.min + randInt(options.max + 1 - options.min);
-  const results = [];
+  let results = [];
   let token = "";
   let relativeIndex = 0;
 
@@ -94,4 +94,4 @@ function words(options) {
 words.wordList = wordList;
 
 // Export the word list as it is often useful
-module.exports = words;
+export default words;

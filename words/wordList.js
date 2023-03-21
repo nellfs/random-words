@@ -1,4 +1,4 @@
-[
+const wordList = [
   "ability",
   "able",
   "aboard",
@@ -1950,5 +1950,7 @@
   "zebra",
   "zipper",
   "zoo",
-  "zulu"
-]
+  "zulu",
+];
+
+export default wordList;
