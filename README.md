@@ -15,7 +15,7 @@ Installation:
 Examples:
 
 ```js
-var randomWords = require("random-words");
+import randomWords from "random-words";
 
 console.log(randomWords());
 //output: army
