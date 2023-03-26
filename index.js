@@ -1,26 +1,23 @@
 import seedrandom from "seedrandom";
 import wordList from "./words/wordList.js";
 
+const longestWord = wordList.reduce((wordA, wordB) =>
+  wordA.length > wordB.length ? wordA : wordB
+);
+
 function words(options) {
   // initalize random number generator for words if options.seed is provided
   const random = options?.seed ? new seedrandom(options.seed) : null;
+  const { minLength, maxLength, ...rest } = options || {};
 
   function word() {
-    if (options && options.maxLength > 1) {
-      return generateWordWithMaxLength();
-    } else {
-      return generateRandomWord();
-    }
-  }
-
-  function generateWordWithMaxLength() {
+    const min = minLength ?? 0;
+    const max = maxLength ?? longestWord.length;
     let rightSize = false;
     let wordUsed;
     while (!rightSize) {
       wordUsed = generateRandomWord();
-      if (wordUsed.length <= options.maxLength) {
-        rightSize = true;
-      }
+      rightSize = wordUsed.length <= max && wordUsed.length >= min;
     }
     return wordUsed;
   }
@@ -40,6 +37,10 @@ function words(options) {
     return word();
   }
 
+  // Generate one word with limits
+  if (minLength | maxLength && Object.keys(rest).length === 0) {
+    return word();
+  }
   // Just a number = return that many words
   if (typeof options === "number") {
     options = { exactly: options };
@@ -90,8 +91,6 @@ function words(options) {
 
   return results;
 }
-
-words.wordList = wordList;
 
 // Export the word list as it is often useful
 export default words;

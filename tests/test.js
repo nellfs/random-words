@@ -57,6 +57,29 @@ describe("random-words", function () {
       );
     });
   });
+  it("should return words with length from 3 to 5 ", function () {
+    const minLengthSize = 3;
+    const maxLengthSize = 5;
+    const words = randomWords({
+      exactly: 10000,
+      minLength: minLengthSize,
+      maxLength: maxLengthSize,
+    });
+    words.forEach((word) => {
+      assert.ok(word.length >= minLengthSize && word.length <= maxLengthSize);
+    });
+  });
+  it("should return words with length = 5", function () {
+    const wordSize = 5;
+    const words = randomWords({
+      exactly: 10000,
+      minLength: wordSize,
+      maxLength: wordSize,
+    });
+    words.forEach((word) => {
+      assert.ok(word.length === wordSize);
+    });
+  });
   it("should return 5 space separated words for each string if wordsPerString is set to 5 and exactly > 1", function () {
     const words = randomWords({ exactly: 10, wordsPerString: 5 });
     words.forEach((string) => {

@@ -18,10 +18,19 @@ Examples:
 import randomWords from "random-words";
 
 console.log(randomWords());
-//output: army
+//output: 'army'
 
 console.log(randomWords(5));
 //output: ['army', 'beautiful', 'became', 'if', 'actually']
+
+console.log(randomWords({ minLength: 2 }));
+//output: 'hello'
+
+console.log(randomWords({ maxLength: 6 }));
+//output: 'blue'
+
+console.log(randomWords({ minLength: 5, maxLength: 5 }));
+//output : 'world'
 
 console.log(randomWords({ min: 3, max: 10 }));
 //output: ['became', 'arrow', 'article', 'therefore']
@@ -42,8 +51,14 @@ console.log(randomWords({ exactly: 5, join: " " }));
 console.log(randomWords({ exactly: 5, join: "" }));
 //output: 'armybeautifulbecameifexactly'
 
+console.log(randomWords({ exactly: 2, minLength: 4 }));
+//output: ['atom', 'window']
+
 console.log(randomWords({ exactly: 5, maxLength: 4 }));
-//output: ['army','come','eye','five','fur']
+//output: ['army', 'come', 'eye', 'five', 'fur']
+
+console.log(randomWords({ exactly: 2, minLength: 3, maxLength: 3 }));
+//output: ['you, 'are']
 
 console.log(randomWords({ exactly: 5, wordsPerString: 2 }));
 //ooutput: [ 'salt practical', 'also brief', 'country muscle', 'neighborhood beyond', 'grew pig' ]

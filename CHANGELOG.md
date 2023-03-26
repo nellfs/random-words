@@ -1,8 +1,12 @@
 # Changelog
 
-## 1.4.0 - 2023-03-21
+## 1.4.0 - 2023-03-25
 
-- TODO Adds new `seed` option. Thanks to [Nathan Klingensmith](https://github.com/IamParadoxdotexe).
+- Addition of `minLength` and `maxLength` options
+- Code update to ES6 Syntax
+- separation of word array: `words/wordList.js`
+
+Update by [Nellfs](https://github.com/nellfs)
 
 ## 1.3.0 - 2023-02-17
 
