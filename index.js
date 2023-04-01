@@ -1,18 +1,29 @@
 import seedrandom from "seedrandom";
 import wordList from "./words/wordList.js";
 
-const longestWord = wordList.reduce((wordA, wordB) =>
-  wordA.length > wordB.length ? wordA : wordB
-);
+const shortestWordSize = wordList.reduce((shortestWord, currentWord) =>
+  currentWord.length < shortestWord.length ? currentWord : shortestWord
+).length;
+
+const longestWordSize = wordList.reduce((longestWord, currentWord) =>
+  currentWord.length > longestWord.length ? currentWord : longestWord
+).length;
 
 function words(options) {
   // initalize random number generator for words if options.seed is provided
   const random = options?.seed ? new seedrandom(options.seed) : null;
+
   const { minLength, maxLength, ...rest } = options || {};
 
   function word() {
-    const min = minLength ?? 0;
-    const max = maxLength ?? longestWord.length;
+    let min = isNaN(minLength) ? 0 : minLength;
+    let max = isNaN(maxLength) ? 0 : maxLength;
+
+    if (min < shortestWordSize) min = shortestWordSize;
+    if (min > longestWordSize) min = longestWordSize;
+    if (max < shortestWordSize) max = shortestWordSize;
+    if (max > longestWordSize) max = longestWordSize;
+
     let rightSize = false;
     let wordUsed;
     while (!rightSize) {
@@ -38,9 +49,16 @@ function words(options) {
   }
 
   // Generate one word with limits
-  if (minLength | maxLength && Object.keys(rest).length === 0) {
+  //continue
+  if (
+    typeof minLength |
+      (maxLength !== "undefined") |
+      (typeof maxLength !== "undefined") &&
+    Object.keys(rest).length === 0
+  ) {
     return word();
   }
+
   // Just a number = return that many words
   if (typeof options === "number") {
     options = { exactly: options };
