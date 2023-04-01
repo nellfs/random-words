@@ -16,13 +16,8 @@ function words(options) {
   const { minLength, maxLength, ...rest } = options || {};
 
   function word() {
-    let min = isNaN(minLength) ? 0 : minLength;
-    let max = isNaN(maxLength) ? 0 : maxLength;
-
-    if (min < shortestWordSize) min = shortestWordSize;
-    if (min > longestWordSize) min = longestWordSize;
-    if (max < shortestWordSize) max = shortestWordSize;
-    if (max > longestWordSize) max = longestWordSize;
+    const min = isNaN(minLength) ? shortestWordSize : limitWordSize(minLength);
+    const max = isNaN(maxLength) ? longestWordSize : limitWordSize(maxLength);
 
     let rightSize = false;
     let wordUsed;
@@ -37,6 +32,13 @@ function words(options) {
     return wordList[randInt(wordList.length)];
   }
 
+  // limits the size of words to the minimum and maximum possible
+  function limitWordSize(wordSize) {
+    if (wordSize < shortestWordSize) wordSize = shortestWordSize;
+    if (wordSize > longestWordSize) wordSize = longestWordSize;
+    return wordSize;
+  }
+
   // random int as seeded by options.seed if applicable, or Math.random() otherwise
   function randInt(lessThan) {
     const r = random ? random() : Math.random();
@@ -49,11 +51,8 @@ function words(options) {
   }
 
   // Generate one word with limits
-  //continue
   if (
-    typeof minLength |
-      (maxLength !== "undefined") |
-      (typeof maxLength !== "undefined") &&
+    (typeof minLength !== "undefined") | (typeof maxLength !== "undefined") &&
     Object.keys(rest).length === 0
   ) {
     return word();
